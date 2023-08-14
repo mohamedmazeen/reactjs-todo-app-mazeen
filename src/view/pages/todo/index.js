@@ -1,14 +1,20 @@
+/**
+ * 
+ * index.js
+ * @author - Mazeen
+ * @date - 14/8/2023
+ **/
 import { useState } from 'react';
 import Add from '../../components/button/add';
 import Delete from '../../components/button/delete';
 import './style.css';
 
 function Todo() {
-    var [newItem, setNewItem] = useState("");
-    var [item, setItem] = useState([]);
-    var [id, setId] = useState(1);
-    var [msg, setMsg] = useState("");
-    var [editingItemId, setEditingItemId] = useState();
+    const [newItem, setNewItem] = useState("");
+    const [items, setItems] = useState([]);
+    const [id, setId] = useState(1);
+    const [msg, setMsg] = useState("");
+    const [editingItemId, setEditingItemId] = useState();
 
     function addItem() {
         if (newItem.trim().length === 0) {
@@ -19,7 +25,7 @@ function Todo() {
         }
 
         if (editingItemId > 0 ) {
-            var updatedItems = item.map((item) => {
+            var updatedItems = items.map((item) => {
                 if (item.id === editingItemId) {
                     return {
                         ...item,
@@ -28,31 +34,31 @@ function Todo() {
                 }
                 return item;
             });
-            setItem(updatedItems);
+            setItems(updatedItems);
             setEditingItemId();
         } else {
             var todo = {
-                id: id,
+                id,
                 value: newItem,
                 completed: false,
             };
             setId((prevId) => prevId + 1);
-            setItem((oldlist) => [...oldlist, todo]);
+            setItems((oldlist) => [...oldlist, todo]);
         }
         setNewItem("");
     }
 
     function deleteItem(id) {
-        var newTodo = item.filter((todo) => todo.id !== id);
-        setItem(newTodo);
+        var newTodo = items.filter((todo) => todo.id !== id);
+        setItems(newTodo);
     }
 
     function deleteAll() {
-        setItem([]);
+        setItems([]);
     }
 
     function strikeItem(todoId) {
-        var updatedItem = item.map((item) => {
+        var updatedItem = items.map((item) => {
             if (item.id === todoId) {
                 return {
                     ...item,
@@ -61,18 +67,18 @@ function Todo() {
             }
             return item;
         });
-        setItem(updatedItem);
+        setItems(updatedItem);
     }
 
     function editItem(todoId) {
-        var editedItem = item.map((item) => {
+        var editedItem = items.map((item) => {
             if (item.id === todoId) {
                 setEditingItemId(todoId);
                 setNewItem(item.value);
             }
             return item;
         });
-        setItem(editedItem);
+        setItems(editedItem);
     }
 
     return (
@@ -93,8 +99,8 @@ function Todo() {
                 </div>
             </div>
             <div className='error mb-15'>{msg}</div>
-            {item.map((todo) => {
-                return (
+            {items.map((todo) => 
+
                     <div key={todo.id} className='row placement'>
                         <div className='col-w30 vh-center'>
                             <input
@@ -121,12 +127,12 @@ function Todo() {
                            <Delete clickHandler={() => deleteItem(todo.id)} />
                         </div>
                     </div>
-                );
-            })}
+                
+            )}
 
             <div className='row mt-30'>
                 <div className='col-1'>
-                    <div>You have <span>{item.length}</span> total tasks</div>
+                    <div>You have <span>{items.length}</span> total tasks</div>
                 </div>
                 <div className='col-auto'>
                     <button className='clear-btn' type='button' onClick={() => deleteAll()}>

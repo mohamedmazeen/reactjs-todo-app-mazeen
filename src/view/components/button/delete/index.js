@@ -1,3 +1,9 @@
+/**
+ * 
+ * index.js
+ * @author - Mazeen
+ * @date - 14/8/2023
+ **/
 import './style.css';
 
 function Delete(props) {
