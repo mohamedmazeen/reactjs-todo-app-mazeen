@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import Add from '../../components/button/add';
+import Delete from '../../components/button/delete';
 import './style.css';
 
 function Todo() {
@@ -87,7 +89,7 @@ function Todo() {
                     />
                 </div>
                 <div className='col-auto v-center'>
-                    <button className='add-btn' type='button' onClick={() => addItem()}>&#43;</button>
+                    <Add clickHandler={addItem}/>
                 </div>
             </div>
             <div className='error mb-15'>{msg}</div>
@@ -116,12 +118,7 @@ function Todo() {
                             </button>
                         </div>
                         <div className='col-w30 h-right'>
-                            <button
-                                className='delete-btn'
-                                type='button'
-                                onClick={() => deleteItem(todo.id)}>
-                                <i className='fa-solid fa-trash'></i>
-                            </button>
+                           <Delete clickHandler={() => deleteItem(todo.id)} />
                         </div>
                     </div>
                 );

@@ -1,4 +1,4 @@
-import Todo from './components/todo/index';
+import Todo from './view/pages/todo/index';
 import './App.css';
 
 function App() {
